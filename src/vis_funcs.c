@@ -5,6 +5,9 @@
 #include <math.h>
 #include "vis.h"
 
+//Entradas: Struct visibilidad
+//Salidas: ninguna
+//Descripción: A partir de una visibilidad indicada, se muestran sus atributos
 void showVisibility(visibility visibility)
 {
 	puts("******************************");
@@ -17,6 +20,10 @@ void showVisibility(visibility visibility)
 	return;
 }
 
+//Entradas:String visibilidad
+//Salidas: Struct visibilidad
+//Descripción: a partir de un string que representa una visibilidad,
+//se procesa para obtener los parametros y generar una visibilidad tipo struct visibility
 visibility stringToVisibility(char * vis)
 {
 	visibility new_visibility;
@@ -48,6 +55,10 @@ visibility stringToVisibility(char * vis)
 	return new_visibility;
 }
 
+//Entradas: cantidad de visibilidades, lista de visibilidades
+//Salidas: valor double que indica la media real de las visibilidades del disco
+//Descripción: dado una cantidad de visibilidades y una lista de visibilidades tipo struct visibility
+//se calcula la media real usando el atributo r_value
 double mediaReal(int qty_visibilities, visibility * visibilities)
 {
 	int i;
@@ -60,6 +71,10 @@ double mediaReal(int qty_visibilities, visibility * visibilities)
 	return sum / qty_visibilities;
 }
 
+//Entradas: cantidad de visibilidades, lista de visibilidades
+//Salidas: valor double que indica la media imaginaria de las visibilidades del disco
+//Descripción: dado una cantidad de visibilidades y una lista de visibilidades tipo struct visibility
+//se calcula la media imaginaria usando el atributo i_value
 double mediaImaginaria(int qty_visibilities, visibility * visibilities)
 {
 	int i;
@@ -72,7 +87,10 @@ double mediaImaginaria(int qty_visibilities, visibility * visibilities)
 	return sum / qty_visibilities;
 }
 
-
+//Entradas: cantidad de visibilidades, lista de visibilidades
+//Salidas: valor double que indica el ruido total del disco
+//Descripción: dado una cantidad de visibilidades y una lista de visibilidades tipo struct visibility
+//se calcula el ruido total usando el atributo noise
 double ruidoTotal(int qty_visibilities, visibility * visibilities)
 {
 	int i;
@@ -85,7 +103,10 @@ double ruidoTotal(int qty_visibilities, visibility * visibilities)
 	return sum;
 }
 
-
+//Entradas: cantidad de visibilidades, lista de visibilidades
+//Salidas: valor double que indica la potencia de las visibilidades del disco
+//Descripción: dado una cantidad de visibilidades y una lista de visibilidades tipo struct visibility
+//se calcula la potencia usando el atributo r_value e i_value
 double potenciaVisibilidades(int qty_visibilities, visibility * visibilities)
 {
 	int i;

@@ -6,15 +6,25 @@
 #include <ctype.h>
 #include "lab1.h"
 
+
+//Entradas: Struct visibilidad
+//Salidas: Distancia en double desde el centro del plano de fourier a la visibilidad indicada
+//Descripción: usando la formula de distancia, se toma el eje u y v en el plano de fourier para calcular su distancia al centro (0,0)
 double getDistance(visibility visibility)
 {
 	double distance = ((visibility.u_axis)*(visibility.u_axis))+((visibility.v_axis)*(visibility.v_axis));
 	return sqrt(distance);
 }
 
+//Entradas:El valor de la distancia, cantidad de radios, ancho de disco
+//Salidas: Disco con el rango correspondiente al valor de la distancia
+//Descripción: dada una distancia, se indica a que disco corresponde según los rangos de los radios
+//Siendo en el caso de encontrarse en el último radio, se indica el último disco
+//En los otros casos se verifica si la distancia se encuentra dentro de los rangos de un disco (parte desde 0)
+// 2 discos -> Disco 0; Disco 1
 int getDisk(double value, int qty_radius, int disk_width)
 {
-	int i;	
+	int i;
 	int disk;
 	for(i = 0; i <= qty_radius; i++)
 	{
@@ -31,7 +41,9 @@ int getDisk(double value, int qty_radius, int disk_width)
 	return disk;
 }
 
-
+//Entradas: nombre de archivo, buffer mensaje_salida, disco
+//Salidas: ninguna
+//Descripción: a partir de un nombre de archivo dado se escribe/sobrescribe un buffer de mensaje en el archivo así como el disco correspondiente
 void writeResult(char *filename, char buffer[1000], char disk[10])
 {
 	FILE *file_result;
@@ -47,14 +59,18 @@ void writeResult(char *filename, char buffer[1000], char disk[10])
     return;
 }
 
-
+//Entradas: argc (cantidad de argumentos), argv (arreglo de argumentos)
+//Salidas: command setting que contiene nombre de archivo, archivo de salida, cantidad de discos, ancho disco, flag
+//Descripción: Usando los argumentos recibidos en la linea de comandos,
+//Estos son procesados por la función getopt() según lo indicando en la linea de comando
+//Al encontrar un caso valido en el getopt, el argumento se almacena en el struct command setting setting
 command_setting getSetting(int argc, char **argv)
 {
 	/* Opciones de linea de comando */
 	int opt;
 	command_setting setting;
 	setting.b_flag = 1;
-	
+
 	while ((opt = getopt(argc, argv, ":i:o:d:n:b")) != -1)
 	{
 		switch(opt)
@@ -80,20 +96,20 @@ command_setting getSetting(int argc, char **argv)
 				setting.b_flag = 0; // True
 				break;
 			case '?':
-		        if (optopt == 'i')
-		          fprintf (stderr, "Opcion -%c requiere el nombre de archivo de entrada.\n", optopt);
-		      	else if(optopt == 'o')
-		      		fprintf (stderr, "Opcion -%c requiere el nombre de archivo de salida.\n", optopt);
-		      	else if(optopt == 'n')
-		      		fprintf (stderr, "Opcion -%c requiere indicar cantidad de discos\n", optopt);
-		      	else if(optopt == 'd')
-		      		fprintf (stderr, "Opcion -%c requiere indicar el ancho de disco\n", optopt);
-		        else if (isprint (optopt))
-		         	fprintf (stderr, "Opción desconocida `-%c'.\n", optopt);
-		        else
-		         	fprintf (stderr,"Caracter de opción desconocida `\\x%x'.\n",optopt);
+				if (optopt == 'i')
+					fprintf (stderr, "Opcion -%c requiere el nombre de archivo de entrada.\n", optopt);
+				else if(optopt == 'o')
+					fprintf (stderr, "Opcion -%c requiere el nombre de archivo de salida.\n", optopt);
+				else if(optopt == 'n')
+					fprintf (stderr, "Opcion -%c requiere indicar cantidad de discos\n", optopt);
+				else if(optopt == 'd')
+					fprintf (stderr, "Opcion -%c requiere indicar el ancho de disco\n", optopt);
+				else if (isprint (optopt))
+					fprintf (stderr, "Opción desconocida `-%c'.\n", optopt);
+				else
+					fprintf (stderr,"Caracter de opción desconocida `\\x%x'.\n",optopt);
 			default:
-				abort();	
+				abort();
 		}
 	}
 

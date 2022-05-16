@@ -6,21 +6,25 @@
 #include "vis.h"
 
 int main(int argc, char **argv) {
-    
+    /* Cantidad de visibilidades desde argumentos */
     int qty_visibilities = argc-1;
+    /* Lista de visibilidades */
     visibility * list = (visibility*)malloc(sizeof(visibility)*qty_visibilities);
 
+    /* Agregar string visibilidad a lista de visibilidades */
     int i;
     for (i = 1; i <= qty_visibilities; i++)
     {
         list[i-1] = stringToVisibility(argv[i]);
     }
 
+    /* Procesamiento disco */
     double media_real = mediaReal(qty_visibilities, list);
     double media_imaginaria = mediaImaginaria(qty_visibilities, list);
     double ruido_total = ruidoTotal(qty_visibilities, list);
     double potencia = potenciaVisibilidades(qty_visibilities, list);
-    
+
+    /* Double to String */
     char buffer_media_real[10];
     char buffer_media_imaginaria[10];
     char buffer_ruido_total[20];
@@ -30,7 +34,8 @@ int main(int argc, char **argv) {
     sprintf(buffer_media_imaginaria, "%.4f", media_imaginaria);
     sprintf(buffer_ruido_total, "%.4f", ruido_total);
     sprintf(buffer_potencia, "%.4f", potencia);
-    
+
+    /* Buffer de salida */
     char buffer[1000] = "";
     char media_r[] = "Media real: ";
     char media_i[] = "Media imaginaria: ";
@@ -50,8 +55,6 @@ int main(int argc, char **argv) {
     strcat(buffer, buffer_ruido_total);
 
     write(STDOUT_FILENO, buffer, 1000);
-    
-    free(list); 
-    
+    free(list);
     return EXIT_SUCCESS;
 }
