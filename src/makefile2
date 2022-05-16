@@ -1,9 +1,9 @@
 CC = gcc
-DEPS = vis.h 
+DEPS = vis.h
 OBJS = vis.o vis_funcs.o
 
 vis: $(OBJS)
-	 	$(CC) -o vis $(OBJS) -lm
+		$(CC) -o vis $(OBJS) -lm
 
 vis.o: vis.c
 		$(CC) -c vis.c
