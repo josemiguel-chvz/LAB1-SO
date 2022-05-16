@@ -1,0 +1,15 @@
+CC = gcc
+DEPS = vis.h 
+OBJS = vis.o vis_funcs.o
+
+vis: $(OBJS)
+	 	$(CC) -o vis $(OBJS)
+
+vis.o: vis.c
+		$(CC) -c vis.c
+
+vis_funcs.o: vis_funcs.c
+		$(CC) -c vis_funcs.c
+
+clean :
+	rm vis $(OBJS)
