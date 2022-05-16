@@ -76,7 +76,7 @@ int main(int argc, char **argv)
                         printf("Error in dup2()\n");
                         exit(-1);
                     }
-
+                    
                     visibilities[qty_visibilities+1] = NULL;
                     execve("./vis", visibilities, NULL);
                     exit(EXIT_FAILURE);
@@ -176,6 +176,7 @@ int main(int argc, char **argv)
         // Obtener buffer desde salida de programa proceso hijo (./vis)
         char buffer[1000];
         read(pipes[p][READ], buffer, 1000);
+        printf("buffer %s\n", buffer);
 
         // Escribir resultado en archivo de salida
         writeResult(result_filename, buffer, disk);

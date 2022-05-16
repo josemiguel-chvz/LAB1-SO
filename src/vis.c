@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     sprintf(buffer_ruido_total, "%.4f", ruido_total);
     sprintf(buffer_potencia, "%.4f", potencia);
     
-    char buffer[1000];
+    char buffer[1000] = "";
     char media_r[] = "Media real: ";
     char media_i[] = "Media imaginaria: ";
     char potencia_t[] = "Potencia: ";
